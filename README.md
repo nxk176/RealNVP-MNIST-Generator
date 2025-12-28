@@ -8,6 +8,7 @@ This project implements a Conditional RealNVP (Normalizing Flow) model to genera
 - `app.py`: Interactive web demo using **Gradio**.
 - `models/`: Directory to save/load trained model weights (`.pth`).
 - `requirements.txt`: List of dependencies.
+- `gradio.png`: Gradio testing simulator
 
 ## 🚀 How to run
 
