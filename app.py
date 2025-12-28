@@ -5,7 +5,7 @@ from PIL import Image
 from network import ConditionalRealNVP
 import os
 
-MODEL_PATH = os.path.join("models", "conditional_robust_fcnn_100epochs.pth")
+MODEL_PATH = os.path.join("models", "conditional_robust_fcnn.pth")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

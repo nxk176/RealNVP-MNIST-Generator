@@ -109,13 +109,10 @@ def save_conditional_samples(model, epoch, device, out_dir="samples"):
     z = torch.randn(labels.size(0), model.dim, device=device)
     with torch.no_grad():
         x_sample, _ = model.inverse(z, labels)
-        # Ảnh X: Clamp về [0, 1]
         x_img = x_sample.view(-1, 1, 28, 28).clamp(0, 1)
         
-        # Ảnh Z: Reshape về 28x28 (Z có giá trị âm dương, nên cần normalize khi lưu)
         z_img = z.view(-1, 1, 28, 28)
         utils.save_image(x_img, os.path.join(out_dir, f"epoch_{epoch}_X_result.png"), nrow=n_per_class)
-        # Lưu Z (Nhiễu gốc) - Dùng normalize=True để hiển thị rõ nhiễu
         utils.save_image(z_img, os.path.join(out_dir, f"epoch_{epoch}_Z_noise.png"), nrow=n_per_class, normalize=True)
         
         grid_img = utils.make_grid(x_img, nrow=n_per_class)
@@ -149,9 +146,7 @@ def train(args):
     dim = 28 * 28
     model = ConditionalRealNVP(dim=dim, n_coupling_layers=args.n_coupling, hidden_dim=args.hidden_dim).to(device)
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
-    # Scheduler: Giảm LR khi loss chững lại
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2)
-    # wandb.watch(model, log="all", log_freq=100)
     
     for epoch in range(1, args.epochs + 1):
         model.train()
@@ -187,40 +182,5 @@ def train(args):
     save_path = os.path.join("models", "conditional_robust_fcnn.pth")
     os.makedirs("models", exist_ok=True)
     torch.save(model.state_dict(), save_path)
-    # print("-> Đã lưu model tại: conditional_robust_fcnn.pth")
     print("Training Complete!")
     return model
-
-if __name__ == "__main__":
-    class Args:
-        data_dir = "./data"
-        batch_size = 64
-        epochs = 10
-        lr = 1e-3
-        n_coupling = 8
-        hidden_dim = 1024 
-        sample_dir = "cond_fcnn_samples_xz" # Folder mới
-        no_cuda = False
-
-    args = Args()
-    trained_model = train(args)
-    
-    # Demo sinh số 8 và xem cả nhiễu gốc
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    # generate_digit(trained_model, digit=8, device=device, 
-    #                out_path_x="so_8_result.png", 
-    #                out_path_z="so_8_noise.png")
-
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser(description="Project 1")
-#     parser.add_argument("--data-dir", type=str, default="./data")
-#     parser.add_argument("--batch-size", type=int, default=128)
-#     parser.add_argument("--epochs", type=int, default=5)
-#     parser.add_argument("--lr", type=float, default=1e-3)
-#     parser.add_argument("--n-coupling", type=int, default=8)
-#     parser.add_argument("--hidden-dim", type=int, default=512)
-#     parser.add_argument("--sample-dir", type=str, default="samples")
-#     parser.add_argument("--no-cuda", action="store_true")
-#     args = parser.parse_args()
-
-#     train(args)
