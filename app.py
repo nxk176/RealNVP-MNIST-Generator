@@ -39,14 +39,13 @@ def predict_digit(digit):
     with torch.no_grad():
         x, _ = model.inverse(z, label)
         x_img = x.view(28, 28).cpu()
-        # Clamp về [0, 1] rồi nhân 255 để ra chuẩn ảnh grayscale
+        # convert to grayscale
         x_img = x_img.clamp(0, 1).numpy() * 255
-        # Chuyển thành kiểu uint8 (số nguyên 0-255)
+        # convert to integer
         x_img = x_img.astype(np.uint8)
 
         z_img = z.view(28, 28).cpu().numpy()
-        # Normalize thủ công để hiển thị đẹp như utils.save_image(normalize=True)
-        # Công thức: (z - min) / (max - min) * 255
+        # normalizing
         z_min, z_max = z_img.min(), z_img.max()
         z_img = (z_img - z_min) / (z_max - z_min) * 255
         z_img = z_img.astype(np.uint8)
