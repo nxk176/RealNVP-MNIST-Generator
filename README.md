@@ -27,4 +27,6 @@ Launch the Gradio web interface to generate images:
 ```bash
     python app.py
 ```
-
+## 🖼️ Result
+Here is the process convert noise (Z) to number image (X):
+![alt text](image.png)
