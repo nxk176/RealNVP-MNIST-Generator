@@ -12,18 +12,21 @@ This project implements a Conditional RealNVP (Normalizing Flow) model to genera
 ## 🚀 How to run
 
 ### 1. Installation
+    ```text
     Install the necessary libraries:
     ```bash
     pip install -r requirements.txt
 ### 2. Training (Optional)
+    ```text
     If you want to train the model from scratch, you can change the value of hyperparameters in main.py: (Note: You will need a WandB account)
     ```bash
     wandb login
     python main.py
 
 ### 3. Running the demo
+    ```text
     Launch the Gradio web interface to generate images:
     ```bash
     python app.py
-    
+
 
