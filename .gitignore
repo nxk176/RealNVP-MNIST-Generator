@@ -1,0 +1,22 @@
+# --- System file ---
+__pycache__/
+*.pyc
+
+# --- Data & Log ---
+data/
+wandb/
+.gradio/
+
+# --- Generated image ---
+wandb_samples/
+*.png
+gen_digit_*.png
+
+# --- File model ---
+models/*.pth
+*.pth
+
+# --- Virtual environment ---
+myenv/
+venv/
+env/
