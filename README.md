@@ -6,7 +6,7 @@ This project implements a Conditional RealNVP (Normalizing Flow) model to genera
 - `network.py`: Contains the model architecture (RealNVP, Coupling Layers).
 - `main.py`: Script for training the model. It integrates **WandB** for real-time loss tracking and image logging.
 - `app.py`: Interactive web demo using **Gradio**.
-- `models/`: Directory to save/load trained model weights (`.pth`).
+- `models/`: Directory to save/load trained model weights (only appear after training) (`.pth`).
 - `requirements.txt`: List of dependencies.
 - `gradio.png`: Gradio testing simulator
 
