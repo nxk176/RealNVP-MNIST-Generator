@@ -29,4 +29,4 @@ Launch the Gradio web interface to generate images:
 ```
 ## 🖼️ Result
 Here is the process convert noise (Z) to number image (X):
-![alt text](image.png)
+![Result](gradio.png)
